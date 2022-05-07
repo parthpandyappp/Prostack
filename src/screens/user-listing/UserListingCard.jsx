@@ -5,9 +5,9 @@ const UserListingCard = ({ userInfo }) => {
   const { title, githubLink, tags, description, techStack } = userInfo;
   return (
     <div className="p-8 w-10/12 m-auto shadow-lg flex flex-col gap-2 rounded-lg">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <p className="text-3xl font-semibold text-heading">{title}</p>
-        <a href={githubLink} target="_blank">
+        <a href={githubLink} target="_blank" rel="noreferrer">
           <AiFillGithub className="text-2xl" />
         </a>
       </div>

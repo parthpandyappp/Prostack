@@ -1,17 +1,12 @@
 import React from "react";
 import { data } from "../data";
-import {
-  ProjectListingNavbar,
-  ProjectListingTabs,
-  ProjectListingSidebar,
-} from "../index";
+import { ProjectListingNavbar, ProjectListingSidebar } from "../index";
 import UserListingCard from "./UserListingCard";
 
 const UserListing = () => {
   return (
     <div>
       <ProjectListingNavbar />
-      <ProjectListingTabs />
       <main className="w-11/12 m-auto">
         <ProjectListingSidebar />
         <h1 className="text-4xl text-heading font-bold text-center">
