@@ -1,6 +1,7 @@
-import ProjectForm from "./screens/project-form/ProjectForm";
+import EndPoints from "./routes/EndPoints";
+
 function App() {
-  return <ProjectForm />;
+  return <EndPoints />;
 }
 
 export default App;
