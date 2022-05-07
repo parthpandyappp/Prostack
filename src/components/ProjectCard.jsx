@@ -1,6 +1,6 @@
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-export default function ProjectCard({ projectInfo }) {
+function ProjectCard({ projectInfo }) {
   const { title, tags, githubLink, description, techStack } = projectInfo;
   return (
     <div className="mx-24 mt-5 flex gap-10 px-10 py-5 h-56 shadow-lg rounded-lg">
@@ -32,3 +32,5 @@ export default function ProjectCard({ projectInfo }) {
     </div>
   );
 }
+
+export { ProjectCard };

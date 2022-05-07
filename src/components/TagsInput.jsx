@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const TagsInput = () => {
+const TagsInput = () => {
   const [tag, setTag] = useState("");
   const [tagArray, setTagArray] = useState([]);
   const changeHandler = (e) => {
@@ -42,4 +42,4 @@ export const TagsInput = () => {
   );
 };
 
-export default TagsInput;
+export { TagsInput };

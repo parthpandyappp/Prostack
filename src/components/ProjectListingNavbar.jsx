@@ -21,4 +21,4 @@ const ProjectListingNavbar = () => {
   );
 };
 
-export default ProjectListingNavbar;
+export { ProjectListingNavbar };

@@ -1,8 +1,10 @@
 import React from "react";
 import { data } from "../data";
-import ProjectListingCard from "./ProjectListingCard";
-import ProjectListingNavbar from "./ProjectListingNavbar";
-import ProjectListingSidebar from "./ProjectListingSidebar";
+import {
+  ProjectListingCard,
+  ProjectListingNavbar,
+  ProjectListingSidebar,
+} from "../components";
 
 const ProjectListing = () => {
   return (
@@ -14,7 +16,7 @@ const ProjectListing = () => {
           Find exciting projects!
         </h1>
         <div className="flex flex-col gap-4 my-6">
-          {data.map((project,index) => {
+          {data.map((project, index) => {
             return <ProjectListingCard key={index} projectInfo={project} />;
           })}
         </div>
@@ -23,4 +25,4 @@ const ProjectListing = () => {
   );
 };
 
-export default ProjectListing;
+export { ProjectListing };

@@ -1,8 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Home, ProjectListing, UserListing } from "../screens";
-import ProjectForm from "../screens/project-form/ProjectForm";
-import UserProfile from "../screens/user-profile/UserProfile";
+import {
+  Home,
+  ProjectListing,
+  UserListing,
+  ProjectForm,
+  UserProfile,
+} from "../pages";
 
 const EndPoints = () => {
   return (

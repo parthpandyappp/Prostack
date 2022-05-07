@@ -1,6 +1,6 @@
-import "./toggleswitch.css";
+import "../styles/toggleswitch.css";
 
-export default function ToggleSwitch() {
+function ToggleSwitch() {
   return (
     <div className="toggle-switch flex gap-4 items-center">
       <label className="switch">
@@ -11,3 +11,5 @@ export default function ToggleSwitch() {
     </div>
   );
 }
+
+export { ToggleSwitch };

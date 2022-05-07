@@ -1,10 +1,8 @@
-import ToggleSwitch from "./toggle-switch/ToggleSwitch";
-import ProjectCard from "./project-card/ProjectCard";
+import { ToggleSwitch, ProjectCard } from "../components";
 import { BsGlobe, BsTwitter } from "react-icons/bs";
-import { user } from "../user";
-import { data } from "../data";
+import { user, data } from "../data";
 
-export default function UserProfile() {
+function UserProfile() {
   return (
     <div className="h-screen relative">
       <div className="bg-gradient-to-tr from-[#094067] to-[#3da9fc] h-1/4 mx-4 mt-3 rounded-lg"></div>
@@ -52,3 +50,5 @@ export default function UserProfile() {
     </div>
   );
 }
+
+export { UserProfile };

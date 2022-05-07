@@ -25,4 +25,4 @@ const ProjectListingSidebar = () => {
   );
 };
 
-export default ProjectListingSidebar;
+export { ProjectListingSidebar };

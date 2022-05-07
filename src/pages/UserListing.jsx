@@ -1,7 +1,10 @@
 import React from "react";
 import { data } from "../data";
-import { ProjectListingNavbar, ProjectListingSidebar } from "../index";
-import UserListingCard from "./UserListingCard";
+import {
+  ProjectListingNavbar,
+  ProjectListingSidebar,
+  UserListingCard,
+} from "../components";
 
 const UserListing = () => {
   return (
@@ -22,4 +25,4 @@ const UserListing = () => {
   );
 };
 
-export default UserListing;
+export { UserListing };

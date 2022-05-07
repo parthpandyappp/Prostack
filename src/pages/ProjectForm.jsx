@@ -1,6 +1,6 @@
-import { TagsInput } from "../../components/TagsInput/TagsInput";
+import { TagsInput } from "../components";
 
-export default function ProjectForm() {
+function ProjectForm() {
   return (
     <div className="flex justify-center items-center m-4">
       <form className="bg-white shadow-lg rounded px-8 pt-6 pb-8 max-w-lg w-3/5">
@@ -116,3 +116,5 @@ export default function ProjectForm() {
     </div>
   );
 }
+
+export { ProjectForm };
