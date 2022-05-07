@@ -1,8 +1,9 @@
+import UserProfile from "./screens/user-profile/UserProfile";
 
 function App() {
   return (
     <div>
-      <p className="text-3xl text-indigo-300">Hello There</p>
+      <UserProfile />
     </div>
   );
 }
