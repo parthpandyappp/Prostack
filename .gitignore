@@ -4,3 +4,4 @@ build
 .DS_Store
 .npm/
 src/dump/
+package-lock.json
