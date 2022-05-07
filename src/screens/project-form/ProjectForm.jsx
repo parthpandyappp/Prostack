@@ -48,7 +48,7 @@ export default function ProjectForm() {
               id="description"
               type="text"
               rows="3"
-              placeholder="Describe your project."
+              placeholder="Describe your project"
             ></textarea>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function ProjectForm() {
             className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
             id="github"
             type="text"
-            placeholder="Project github link"
+            placeholder="Project GitHub link"
           />
         </div>
         <label
