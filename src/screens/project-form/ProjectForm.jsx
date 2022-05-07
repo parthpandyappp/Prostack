@@ -1,14 +1,9 @@
-import { AiFillTwitterCircle } from "react-icons/ai";
-import { FaDiscord } from "react-icons/fa";
 import { TagsInput } from "../../components/TagsInput/TagsInput";
 
 export default function ProjectForm() {
-  const selectedTags = (tags) => {
-    console.log(tags);
-  };
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8">
+    <div className="flex justify-center items-center m-4">
+      <form className="bg-white shadow-lg rounded px-8 pt-6 pb-8 max-w-lg w-3/5">
         <h1 className="text-center font-bold text-[#094067] text-3xl mb-4">
           Project details form
         </h1>
@@ -20,7 +15,7 @@ export default function ProjectForm() {
             Project name
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
             id="username"
             type="text"
             placeholder="Project name"
@@ -34,7 +29,7 @@ export default function ProjectForm() {
             Category
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
             id="username"
             type="text"
             placeholder="Category"
@@ -49,7 +44,7 @@ export default function ProjectForm() {
               Description
             </label>
             <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline-button"
               id="description"
               type="text"
               rows="3"
@@ -60,39 +55,20 @@ export default function ProjectForm() {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
+            htmlFor="tags"
           >
             Tags
           </label>
-          <div className="flex flex-wrap justify-center space-x-2">
-            <span className="px-4 py-2 rounded-full text-gray-500 bg-gray-200 font-semibold text-xs flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-              Text
-            </span>
-
-            <span className="px-4 py-2 rounded-full text-gray-500 bg-gray-200 font-semibold text-xs flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-              Text
-              <button className="bg-transparent hover focus:outline-none"></button>
-            </span>
-          </div>
+          <TagsInput />
         </div>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
+            htmlFor="tech-stack"
           >
             Tech stack
           </label>
-          {/* <div className="flex flex-wrap justify-center space-x-2">
-            <span className="px-4 py-2 rounded-full text-gray-500 bg-gray-200 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-              Text
-            </span>
-
-            <span className="px-4 py-2 rounded-full text-gray-500 bg-gray-200 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-              Text
-              <button className="bg-transparent hover focus:outline-none"></button>
-            </span>
-          </div> */}
-          <TagsInput selectedTags={selectedTags} tags={["Nodejs", "MongoDB"]} />
+          <TagsInput />
         </div>
         <div className="mb-4">
           <label
@@ -102,7 +78,7 @@ export default function ProjectForm() {
             Project github link
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
             id="github"
             type="text"
             placeholder="Project github link"
@@ -115,24 +91,34 @@ export default function ProjectForm() {
           Contact
         </label>
 
-        {/* <select name="point-of-contact" id="cars" className="mb-4">
-          <option value="Twitter">Twitter</option>
-          <option value="Discord">Discord</option>
-        </select> */}
-        <div>
-          <AiFillTwitterCircle /> jrhjhgj
-          <FaDiscord />
-        </div>
+        <select
+          name="point-of-contact"
+          id="social-links"
+          className="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <option
+            value="Twitter"
+            className="block p-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+          >
+            Twitter
+          </option>
+          <option
+            value="Discord"
+            className="block p-4 hover:bg-gray-100 dark:hover:text-white"
+          >
+            Discord
+          </option>
+        </select>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+          className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
           id="username"
           type="text"
-          placeholder="contact"
+          placeholder="Enter the profile link"
         />
-        <div className="flex space-x-2 justify-center">
+        <div className="flex space-x-2 ">
           <button
             type="button"
-            className="inline-block px-6 py-2.5 bg-[#3da9fc] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            className="w-full text-buttonText bg-button hover:opacity-90 focus:ring-4  font-medium rounded text-md px-5 py-2.5"
           >
             Submit
           </button>
