@@ -10,7 +10,7 @@ const UserListing = () => {
       <main className="w-11/12 m-auto">
         <ProjectListingSidebar />
         <h1 className="text-4xl text-heading font-bold text-center">
-          Find awsome teammates!
+          Find awesome teammates!
         </h1>
         <div className="flex flex-col gap-4 my-6">
           {data.map((user, index) => {
