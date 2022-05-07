@@ -7,7 +7,6 @@ export const TagsInput = () => {
     setTag(e.target.value);
   };
   const keyDownHandler = (e) => {
-    // e.preventDefault();
     if (tag === "" || tag === " ") return;
     if (tagArray.includes(tag.trim())) return setTag("");
     if (e.keyCode === 13 || e.keyCode === 32) {
@@ -19,12 +18,12 @@ export const TagsInput = () => {
   };
   return (
     <div className="flex flex-col gap-[10px]">
-      <div className="flex gap-[5px]">
+      <div className="flex gap-[5px] flex-wrap">
         {tagArray.map((tag, index) => {
           return (
             <span
               key={index}
-              className="tag px-4 py-2 rounded-full text-gray-500 bg-gray-200 font-semibold text-xs flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease"
+              className="bg-gray-200 text-paragraph text-sm px-2 rounded-full cursor-pointer transition duration-300 ease"
             >
               {tag}
             </span>
@@ -33,7 +32,7 @@ export const TagsInput = () => {
       </div>
       <input
         type="text"
-        className="tag-input bg-paragraph/20 rounded px-4 py-2 text-buttonText w-full"
+        className="tag-input bg-paragraph/20 rounded px-4 py-2 text-buttonText w-full text-black focus:outline-paragraph"
         placeholder="Add tags"
         onChange={changeHandler}
         onKeyDown={keyDownHandler}
