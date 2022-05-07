@@ -1,10 +1,7 @@
+import EndPoints from "./routes/EndPoints";
 
 function App() {
-  return (
-    <div>
-      <p className="text-3xl text-indigo-300">Hello There</p>
-    </div>
-  );
+  return <EndPoints />;
 }
 
 export default App;
