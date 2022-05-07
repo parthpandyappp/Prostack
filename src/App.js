@@ -1,11 +1,7 @@
-import UserProfile from "./screens/user-profile/UserProfile";
+import EndPoints from "./routes/EndPoints";
 
 function App() {
-  return (
-    <div>
-      <UserProfile />
-    </div>
-  );
+  return <EndPoints />;
 }
 
 export default App;
