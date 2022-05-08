@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   const { authenticateWithGitHub } = useAuth();
-
   return (
     <div>
       <nav className="flex justify-between px-8 pt-6 items-center">
