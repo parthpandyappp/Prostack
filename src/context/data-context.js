@@ -5,7 +5,7 @@ import { actionTypes, dataReducer } from "../reducers";
 
 const DataContext = createContext(null);
 
-const { SET_COLLAB_USER_LIST } = actionTypes;
+const { SET_COLLAB_USER_LIST, SET_PROJECTS_LIST } = actionTypes;
 
 export const DataProvider = ({ children }) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, {
@@ -29,23 +29,24 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  //   const getProjects = async () => {
-  //     try {
-  //       const userRef = collection(db, "users");
-  //       const q = query(userRef, where("isOpenForCollab", "==", true));
-  //       const querySnapshot = await getDocs(q);
-  //       const collabList = querySnapshot.docs.map((snap) => snap.data());
-  //       dataDispatch({
-  //         type: SET_COLLAB_USER_LIST,
-  //         payload: { collabList: collabList },
-  //       });
-  //     } catch (error) {
-  //       alert(error.response);
-  //     }
-  //   };
+  const getProjects = async () => {
+    try {
+      const userRef = collection(db, "projects");
+      const querySnapshot = await getDocs(userRef);
+      const projects = querySnapshot.docs.map((snap) => snap.data());
+      console.log("projects", projects);
+      dataDispatch({
+        type: SET_PROJECTS_LIST,
+        payload: { projects },
+      });
+    } catch (error) {
+      alert(error.response);
+    }
+  };
 
   useEffect(() => {
     getCollabUserList();
+    getProjects();
   }, []);
 
   return (
