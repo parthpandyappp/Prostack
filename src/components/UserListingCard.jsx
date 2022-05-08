@@ -2,8 +2,7 @@ import React from "react";
 import { AiFillGithub } from "react-icons/ai";
 
 const UserListingCard = ({ userInfo }) => {
-  console.log(userInfo);
-  const { displayName, bio, username, avatar } = userInfo;
+  const { displayName, bio, username } = userInfo;
   return (
     <div className="p-8 w-10/12 m-auto shadow-lg flex flex-col gap-2 rounded-lg">
       <div className="flex items-center gap-2">
