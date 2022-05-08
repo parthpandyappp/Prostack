@@ -18,8 +18,7 @@ const CategoryList = ({ activeCategory, setActiveCategory }) => {
 
   return (
     <div>
-      <p className="text-paragraph font-semibold">Filter by Category:</p>
-      <div className="flex gap-2 my-2">
+      <div className="flex justify-center gap-2 my-8">
         {listOfCategories.map((category, index) => {
           return (
             <span
