@@ -1,3 +1,4 @@
+export { Search } from "./Search";
 export { CategoryList } from "./CategoryList";
 export { ProjectCard } from "./ProjectCard";
 export { ProjectListingCard } from "./ProjectListingCard";

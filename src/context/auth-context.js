@@ -22,7 +22,6 @@ function AuthProvider({ children }) {
   const authenticateWithGitHub = async () => {
     const res = await signInWithPopup(auth, new GithubAuthProvider());
     setUserData(res);
-    localStorage.setItem("token", res.user.providerData[0].uid);
     navigate("/listing/projects");
     return res;
   };

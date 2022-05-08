@@ -2,6 +2,7 @@ import React from "react";
 
 const CategoryList = ({ activeCategory, setActiveCategory }) => {
   const listOfCategories = [
+    "All",
     "Remote",
     "Community",
     "DevTools",
@@ -18,7 +19,7 @@ const CategoryList = ({ activeCategory, setActiveCategory }) => {
 
   return (
     <div>
-      <div className="flex justify-center gap-2 my-8">
+      <div className="flex justify-center gap-2 my-8 flex-wrap">
         {listOfCategories.map((category, index) => {
           return (
             <span
