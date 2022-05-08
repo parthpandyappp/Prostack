@@ -1,10 +1,12 @@
 import React from "react";
 import { AiFillGithub } from "react-icons/ai";
+import { BsBoxArrowUpRight } from "react-icons/bs";
 
 const ProjectListingCard = ({ projectInfo }) => {
   const {
     projectName,
     gitHubLink,
+    contactLink,
     category,
     tagArray,
     description,
@@ -40,6 +42,16 @@ const ProjectListingCard = ({ projectInfo }) => {
       <div className="text-heading font-medium">
         Tech Stack: {techStackArray.join(", ")}
       </div>
+
+      <a
+        href={contactLink}
+        target="_blank"
+        rel="noreferrer"
+        className="text-button underline flex items-center gap-3"
+      >
+        Collaborate
+        <BsBoxArrowUpRight />
+      </a>
     </div>
   );
 };
