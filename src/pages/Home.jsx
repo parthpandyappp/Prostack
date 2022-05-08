@@ -3,7 +3,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { useAuth } from "../context";
 
 const Home = () => {
-  const { currentUser, signin } = useAuth();
+  const { signin } = useAuth();
 
   return (
     <div className="w-full h-screen flex justify-center items-center ">
