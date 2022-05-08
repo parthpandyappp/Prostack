@@ -10,11 +10,11 @@ const Home = () => {
     <div>
       <nav className="flex justify-between px-8 pt-6 items-center">
         <h1 className="text-2xl font-bold">
-          Pro<span className="text-[#3DA9FC]">Stack</span>
+          Pro<span className="text-button">Stack</span>
         </h1>
         <a
           href="https://github.com/parthpandyappp/Prostack/tree/main"
-          className="font-medium boder-[#3DA9FC] border-b-4 hover:border-b-blue-500"
+          className="font-medium boder-button border-b-4 hover:border-b-blue-500"
         >
           GitHub
         </a>
@@ -27,8 +27,7 @@ const Home = () => {
         />
         <div className="text-2xl font-bold text-center mb-6 md:text-4xl">
           <p>
-            Find interesting{" "}
-            <span className="text-[#3DA9FC]">side projects</span>
+            Find interesting <span className="text-button">side projects</span>
           </p>
           <p>and collaborate with people.</p>
         </div>
