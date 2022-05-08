@@ -31,7 +31,7 @@ export const DataProvider = ({ children }) => {
 
   const getProjects = async () => {
     try {
-      const userRef = collection(db, "projects");
+      const userRef = collection(db, "users");
       const querySnapshot = await getDocs(userRef);
       const projects = querySnapshot.docs.map((snap) => snap.data());
       console.log("projects", projects);
