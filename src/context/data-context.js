@@ -19,7 +19,6 @@ export const DataProvider = ({ children }) => {
       const q = query(userRef, where("isOpenForCollab", "==", true));
       const querySnapshot = await getDocs(q);
       const collabList = querySnapshot.docs.map((snap) => snap.data());
-      console.log(collabList);
       dataDispatch({
         type: SET_COLLAB_USER_LIST,
         payload: { collabList: collabList },
@@ -28,22 +27,6 @@ export const DataProvider = ({ children }) => {
       alert(error.response);
     }
   };
-
-  //   const getProjects = async () => {
-  //     try {
-  //       const userRef = collection(db, "users");
-  //       const q = query(userRef, where("isOpenForCollab", "==", true));
-  //       const querySnapshot = await getDocs(q);
-  //       const collabList = querySnapshot.docs.map((snap) => snap.data());
-  //       dataDispatch({
-  //         type: SET_COLLAB_USER_LIST,
-  //         payload: { collabList: collabList },
-  //       });
-  //     } catch (error) {
-  //       alert(error.response);
-  //     }
-  //   };
-
   useEffect(() => {
     getCollabUserList();
   }, []);

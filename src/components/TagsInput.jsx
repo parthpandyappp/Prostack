@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TagsInput = ({ arr, setArr }) => {
+const TagsInput = ({ arr, setArr, name }) => {
   const [tag, setTag] = useState("");
 
   const changeHandler = (e) => {
@@ -12,7 +12,7 @@ const TagsInput = ({ arr, setArr }) => {
     if (arr.includes(tag.trim())) return setTag("");
     if (e.keyCode === 13 || e.keyCode === 32) {
       setArr((prev) => {
-        return [...prev, tag];
+        return { ...prev, [name]: [...arr, tag] };
       });
       setTag("");
     }

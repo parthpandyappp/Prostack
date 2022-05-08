@@ -5,18 +5,31 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 function ProjectForm() {
-  const [tagArray, setTagArray] = useState([]);
-  const [gitHubLink, setGitHubLink] = useState("");
-  const [description, setDescription] = useState("");
-  const [projectName, setProjectName] = useState("");
-  const [category, setCategory] = useState("Productivity");
-  const [techStackArray, setTechStackArray] = useState([]);
-  const [contact, setContact] = useState({ link: "", medium: "Twitter" });
+  const initialFormData = {
+    tagArray: [],
+    gitHubLink: "",
+    description: "",
+    projectName: "",
+    category: "Productivity",
+    techStackArray: [],
+    contactMethod: "Twitter",
+    contactLink: "",
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   const {
-    currentUser: {  projects,docId },
-  } = useAuth();
+    projectName,
+    description,
+    gitHubLink,
+    category,
+    tagArray,
+    techStackArray,
+    contactLink,
+    contactMethod,
+  } = formData;
 
+  const { currentUser, getUser } = useAuth();
+  const { uid, projects } = currentUser;
   const postProjectDataToFirestore = async () => {
     try {
       const formData = {
@@ -26,17 +39,23 @@ function ProjectForm() {
         category,
         tagArray,
         techStackArray,
-        contact: contact,
+        contactLink,
+        contactMethod,
       };
       const newProjectArr = [...projects, formData];
-      console.log(newProjectArr);
-      const docRef = doc(db, "users", docId);
+      const docRef = doc(db, "users", uid);
       await updateDoc(docRef, {
         projects: newProjectArr,
       });
+      await getUser(uid);
+      setFormData(initialFormData);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const changeHandler = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -58,8 +77,10 @@ function ProjectForm() {
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
               id="username"
               type="text"
-              placeholder="Project name"
-              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="Enter project title"
+              name="projectName"
+              value={projectName}
+              onChange={changeHandler}
             />
           </div>
           <div className="mb-4">
@@ -70,11 +91,11 @@ function ProjectForm() {
               Category
             </label>
             <select
-              name="point-of-contact"
+              name="category"
               id="category"
               value={category}
               className="mb-4 py-2 border-2 border-gray-100 block w-full focus:border-button"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={changeHandler}
             >
               <option value="Remote">Remote</option>
               <option value="Community">Community</option>
@@ -96,8 +117,10 @@ function ProjectForm() {
                 id="description"
                 type="text"
                 rows="3"
+                value={description}
+                name="description"
                 placeholder="Describe your project"
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={changeHandler}
               ></textarea>
             </div>
           </div>
@@ -108,7 +131,7 @@ function ProjectForm() {
             >
               Tags
             </label>
-            <TagsInput arr={tagArray} setArr={setTagArray} />
+            <TagsInput arr={tagArray} setArr={setFormData} name={"tagArray"} />
           </div>
           <div className="mb-4">
             <label
@@ -117,7 +140,11 @@ function ProjectForm() {
             >
               Tech stack
             </label>
-            <TagsInput arr={techStackArray} setArr={setTechStackArray} />
+            <TagsInput
+              arr={techStackArray}
+              setArr={setFormData}
+              name="techStackArray"
+            />
           </div>
           <div className="mb-4">
             <label
@@ -130,8 +157,10 @@ function ProjectForm() {
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
               id="github"
               type="url"
+              name="gitHubLink"
               placeholder="Project GitHub link"
-              onChange={(e) => setGitHubLink(e.target.value)}
+              value={gitHubLink}
+              onChange={changeHandler}
             />
           </div>
           <label
@@ -141,13 +170,11 @@ function ProjectForm() {
             Preferred mode of contact
           </label>
           <select
-            name="point-of-contact"
+            name="contactMethod"
             id="social-links"
             className="mb-4 py-2 border-2 border-gray-100 block w-full focus:border-button"
-            value={contact.medium}
-            onChange={(e) =>
-              setContact((prev) => ({ ...prev, medium: e.target.value }))
-            }
+            value={contactMethod}
+            onChange={changeHandler}
           >
             <option value="Twitter">Twitter</option>
             <option value="Discord">Discord</option>
@@ -157,9 +184,9 @@ function ProjectForm() {
             id="username"
             type="text"
             placeholder="Enter the selected profile link for collaboration"
-            onChange={(e) =>
-              setContact((prev) => ({ ...prev, link: e.target.value }))
-            }
+            value={contactLink}
+            name="contactLink"
+            onChange={changeHandler}
           />
           <div className="flex space-x-2 ">
             <button
