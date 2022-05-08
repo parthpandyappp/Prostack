@@ -5,6 +5,7 @@ import {
   ProjectListingNavbar,
   ProjectListingSidebar,
 } from "../components";
+import Footer from "../components/Footer";
 
 const ProjectListing = () => {
   return (
@@ -21,6 +22,7 @@ const ProjectListing = () => {
           })}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
