@@ -36,7 +36,7 @@ function ToggleSwitch() {
         />
         <span className="slider round"></span>
       </label>
-      <label>Open for Collaborations</label>
+      <label className="font-medium">Open for Collaborations</label>
     </div>
   );
 }

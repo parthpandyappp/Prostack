@@ -20,7 +20,7 @@ function UserProfile() {
           </div>
           <div className="socials flex flex-col-reverse items-center mt-2 gap-3 md:items-end">
             <ToggleSwitch />
-            <div className="socials flex gap-3 mt-4 justify-end">
+            <div className="socials flex gap-3 mt-4 justify-end text-3xl">
               <a
                 href={currentUser.blog}
                 className="flex items-center gap-2 hover:text-button"
