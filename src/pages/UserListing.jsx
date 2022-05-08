@@ -1,13 +1,15 @@
 import React from "react";
-import { data } from "../data";
 import {
   ProjectListingNavbar,
   ProjectListingSidebar,
   UserListingCard,
 } from "../components";
 import Footer from "../components/Footer";
+import { useData } from "../context";
 
 const UserListing = () => {
+  const { dataState } = useData();
+  const { collabUserList } = dataState;
   return (
     <div>
       <ProjectListingNavbar />
@@ -17,7 +19,7 @@ const UserListing = () => {
           Find awesome teammates!
         </h1>
         <div className="flex flex-col gap-4 my-6">
-          {data.map((user, index) => {
+          {collabUserList.map((user, index) => {
             return <UserListingCard key={index} userInfo={user} />;
           })}
         </div>
