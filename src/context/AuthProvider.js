@@ -8,16 +8,19 @@ import {
   getDocs,
   serverTimestamp,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const authContext = createContext(null);
 
 function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const signin = async () => {
+  const authenticateWithGitHub = async () => {
     const res = await signInWithPopup(auth, new GithubAuthProvider());
     setUserData(res);
+    navigate("/listing/projects");
     return res;
   };
 
@@ -41,7 +44,6 @@ function AuthProvider({ children }) {
   };
 
   const getUserDataFromFireStore = async () => {
-    // const docRef = doc(db, "users");
     const res = await getDocs(collection(db, "users"));
     return res;
   };
@@ -59,8 +61,8 @@ function AuthProvider({ children }) {
           userData.user.providerData[0].uid
         );
         setCurrentUser(currentUser);
-        const exist = await doesExist(currentUser);
-        if (!exist)
+        const userExists = await doesExist(currentUser);
+        if (!userExists)
           addDoc(collection(db, "users"), {
             currentUser,
           });
@@ -70,7 +72,7 @@ function AuthProvider({ children }) {
   }, [userData]);
 
   return (
-    <authContext.Provider value={{ currentUser, signin }}>
+    <authContext.Provider value={{ currentUser, authenticateWithGitHub }}>
       {children}
     </authContext.Provider>
   );

@@ -7,6 +7,7 @@ import {
   ProjectForm,
   UserProfile,
 } from "../pages";
+import ErrorPage from "../pages/ErrorPage";
 
 const EndPoints = () => {
   return (
@@ -16,6 +17,7 @@ const EndPoints = () => {
       <Route path="/listing/users" element={<UserListing />} />
       <Route path="/project-form" element={<ProjectForm />} />
       <Route path="/userprofile" element={<UserProfile />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };
