@@ -5,7 +5,7 @@ import { actionTypes, dataReducer } from "../reducers";
 
 const DataContext = createContext(null);
 
-const { SET_COLLAB_USER_LIST } = actionTypes;
+const { SET_COLLAB_USER_LIST, SET_PROJECTS_LIST } = actionTypes;
 
 export const DataProvider = ({ children }) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, {
@@ -27,8 +27,25 @@ export const DataProvider = ({ children }) => {
       alert(error.response);
     }
   };
+
+  const getProjects = async () => {
+    try {
+      const userRef = collection(db, "users");
+      const querySnapshot = await getDocs(userRef);
+      const userList = querySnapshot.docs.map((snap) => snap.data());
+      const projectList = userList.map((user) => user.projects).flat(1);
+      dataDispatch({
+        type: SET_PROJECTS_LIST,
+        payload: { projectList },
+      });
+    } catch (error) {
+      alert(error.response);
+    }
+  };
+
   useEffect(() => {
     getCollabUserList();
+    getProjects();
   }, []);
 
   return (
