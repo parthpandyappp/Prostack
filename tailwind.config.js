@@ -1,7 +1,7 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
-    extent: {
+    extend: {
       colors: {
         body: "#FFFFFE",
         heading: "#094067",
@@ -9,7 +9,7 @@ module.exports = {
         button: "#3DA9FC",
         buttonText: "#FFFFFE",
       },
-    }
+    },
   },
   plugins: [],
 };
