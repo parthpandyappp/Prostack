@@ -34,6 +34,13 @@ You don't have to buy any PRO:star2: to use ProStack:joy:, it's a free Opensourc
 - `Firebase`
 - `TailwindCSS`
 
+## Basic Workflow of the Project
+<a href="https://excalidraw.com/#json=IKE-IYPipJUJKJPWTxct_,Lr4p2t93_uDXYzSDA083lw">
+  <p align="center">
+  <img src="https://i.ibb.co/YkFms49/Pro-Stack-Workflow.png" title="Workflow"/>
+  </p>
+</a>
+
 ### Early Preview :star2:
 
 - Home 
