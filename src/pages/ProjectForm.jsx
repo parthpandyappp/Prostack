@@ -3,6 +3,7 @@ import { ProjectListingNavbar, TagsInput } from "../components";
 import { useAuth } from "../context";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
   const initialFormData = {
@@ -16,6 +17,7 @@ function ProjectForm() {
     contactLink: "",
   };
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   const {
     projectName,
@@ -48,6 +50,7 @@ function ProjectForm() {
         projects: newProjectArr,
       });
       await getUser(uid);
+      navigate("/listing/projects");
       setFormData(initialFormData);
     } catch (error) {
       console.error(error);
