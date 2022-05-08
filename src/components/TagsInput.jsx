@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
-const TagsInput = () => {
+const TagsInput = ({ arr, setArr }) => {
   const [tag, setTag] = useState("");
-  const [tagArray, setTagArray] = useState([]);
+
   const changeHandler = (e) => {
     setTag(e.target.value);
   };
+
   const keyDownHandler = (e) => {
     if (tag === "" || tag === " ") return;
-    if (tagArray.includes(tag.trim())) return setTag("");
+    if (arr.includes(tag.trim())) return setTag("");
     if (e.keyCode === 13 || e.keyCode === 32) {
-      setTagArray((prev) => {
+      setArr((prev) => {
         return [...prev, tag];
       });
       setTag("");
@@ -19,7 +20,7 @@ const TagsInput = () => {
   return (
     <div className="flex flex-col gap-[10px]">
       <div className="flex gap-[5px] flex-wrap">
-        {tagArray.map((tag, index) => {
+        {arr?.map((tag, index) => {
           return (
             <span
               key={index}

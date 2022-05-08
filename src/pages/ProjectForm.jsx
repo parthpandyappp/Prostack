@@ -1,6 +1,35 @@
+import { useState } from "react";
 import { ProjectListingNavbar, TagsInput } from "../components";
+import { useAuth } from "../context";
+import {
+  collection,
+  updateDoc,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 function ProjectForm() {
+  const [tagArray, setTagArray] = useState([]);
+  const [gitHubLink, setGitHubLink] = useState("");
+  const [description, setDescription] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [category, setCategory] = useState("Productivity");
+  const [techStackArray, setTechStackArray] = useState([]);
+
+  console.log({
+    projectName,
+    description,
+    gitHubLink,
+    category,
+    tagArray,
+    techStackArray,
+  });
+
+  const postProjectDataToFirestore = async () => {
+    const res = updateDoc(collection(db, "projects"), {});
+  };
+
   return (
     <>
       <ProjectListingNavbar />
@@ -21,6 +50,7 @@ function ProjectForm() {
               id="username"
               type="text"
               placeholder="Project name"
+              onChange={(e) => setProjectName(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -30,12 +60,19 @@ function ProjectForm() {
             >
               Category
             </label>
-            <input
-              className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
-              id="username"
-              type="text"
-              placeholder="Project category - productivity, education, community etc"
-            />
+            <select
+              name="point-of-contact"
+              id="category"
+              value={category}
+              className="mb-4 py-2 border-2 border-gray-100 block w-full focus:border-button"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="Remote">Remote</option>
+              <option value="Community">Community</option>
+              <option value="Dev tools">Dev tools</option>
+              <option value="Education">Education</option>
+              <option value="Productivity">Productivity</option>
+            </select>
           </div>
           <div className="flex">
             <div className="mb-4 w-full">
@@ -51,6 +88,7 @@ function ProjectForm() {
                 type="text"
                 rows="3"
                 placeholder="Describe your project"
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -61,7 +99,7 @@ function ProjectForm() {
             >
               Tags
             </label>
-            <TagsInput />
+            <TagsInput arr={tagArray} setArr={setTagArray} />
           </div>
           <div className="mb-4">
             <label
@@ -70,7 +108,7 @@ function ProjectForm() {
             >
               Tech stack
             </label>
-            <TagsInput />
+            <TagsInput arr={techStackArray} setArr={setTechStackArray} />
           </div>
           <div className="mb-4">
             <label
@@ -82,8 +120,9 @@ function ProjectForm() {
             <input
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-button mb-4"
               id="github"
-              type="text"
+              type="url"
               placeholder="Project GitHub link"
+              onChange={(e) => setGitHubLink(e.target.value)}
             />
           </div>
           <label

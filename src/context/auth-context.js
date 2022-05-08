@@ -67,6 +67,7 @@ function AuthProvider({ children }) {
           addDoc(collection(db, "users"), {
             ...authenticatedUser,
             isOpenForCollab: false,
+            projects: [],
           });
       }
     })();
