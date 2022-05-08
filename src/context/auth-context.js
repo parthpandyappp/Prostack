@@ -4,9 +4,11 @@ import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import {
   collection,
-  addDoc,
   getDocs,
   serverTimestamp,
+  doc,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -55,27 +57,45 @@ function AuthProvider({ children }) {
     return data.find((user) => user.uid === currentUser.uid);
   };
 
+  const getUser = async (uid) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setCurrentUser(docSnap.data());
+    }
+  };
+
   useEffect(() => {
     (async () => {
       if (userData) {
         const authenticatedUser = await getFromGitHub(
           userData.user.providerData[0].uid
         );
-        setCurrentUser({ ...authenticatedUser, isOpenForCollab: false });
         const userExists = await doesExist(authenticatedUser);
-        console.log(userExists);
-        if (!userExists)
-          addDoc(collection(db, "users"), {
+        if (!userExists) {
+          const userRef = collection(db, "users");
+          await setDoc(doc(userRef, authenticatedUser.uid), {
             ...authenticatedUser,
             isOpenForCollab: false,
+            projects: [],
           });
+          setCurrentUser({
+            ...authenticatedUser,
+            isOpenForCollab: false,
+            projects: [],
+          });
+        } else {
+          await getUser(authenticatedUser.uid);
+        }
       }
     })();
     // eslint-disable-next-line
   }, [userData]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, authenticateWithGitHub }}>
+    <AuthContext.Provider
+      value={{ currentUser, authenticateWithGitHub, getUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
