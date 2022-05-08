@@ -32,7 +32,7 @@ const TagsInput = () => {
       </div>
       <input
         type="text"
-        className="tag-input bg-paragraph/20 rounded px-4 py-2 text-buttonText w-full text-black focus:outline-paragraph"
+        className="tag-input bg-paragraph/20 rounded px-4 py-2 text-buttonText w-full focus:outline-paragraph"
         placeholder="Add tags"
         onChange={changeHandler}
         onKeyDown={keyDownHandler}

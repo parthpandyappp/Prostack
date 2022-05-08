@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const authContext = createContext(null);
+const AuthContext = createContext(null);
 
 function AuthProvider({ children }) {
   const navigate = useNavigate();
@@ -63,6 +63,7 @@ function AuthProvider({ children }) {
         );
         setCurrentUser({ ...authenticatedUser, isOpenForCollab: false });
         const userExists = await doesExist(authenticatedUser);
+        console.log(userExists);
         if (!userExists)
           addDoc(collection(db, "users"), {
             ...authenticatedUser,
@@ -74,12 +75,12 @@ function AuthProvider({ children }) {
   }, [userData]);
 
   return (
-    <authContext.Provider value={{ currentUser, authenticateWithGitHub }}>
+    <AuthContext.Provider value={{ currentUser, authenticateWithGitHub }}>
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
-const useAuth = () => useContext(authContext);
+const useAuth = () => useContext(AuthContext);
 
 export { useAuth, AuthProvider };
