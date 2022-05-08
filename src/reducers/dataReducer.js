@@ -7,7 +7,7 @@ export const dataReducer = (state, action) => {
     case SET_COLLAB_USER_LIST:
       return { ...state, collabUserList: action.payload.collabList };
     case SET_PROJECTS_LIST:
-      return { ...state, projects: action.payload.projects };
+      return { ...state, projects: action.payload.projectList };
     default:
       return state;
   }

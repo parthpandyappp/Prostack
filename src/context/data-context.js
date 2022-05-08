@@ -32,11 +32,11 @@ export const DataProvider = ({ children }) => {
     try {
       const userRef = collection(db, "users");
       const querySnapshot = await getDocs(userRef);
-      const projects = querySnapshot.docs.map((snap) => snap.data());
-      console.log("projects", projects);
+      const userList = querySnapshot.docs.map((snap) => snap.data());
+      const projectList = userList.map((user) => user.projects).flat(1);
       dataDispatch({
         type: SET_PROJECTS_LIST,
-        payload: { projects },
+        payload: { projectList },
       });
     } catch (error) {
       alert(error.response);
