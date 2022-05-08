@@ -19,6 +19,7 @@ export const DataProvider = ({ children }) => {
       const q = query(userRef, where("isOpenForCollab", "==", true));
       const querySnapshot = await getDocs(q);
       const collabList = querySnapshot.docs.map((snap) => snap.data());
+      console.log(collabList);
       dataDispatch({
         type: SET_COLLAB_USER_LIST,
         payload: { collabList: collabList },
@@ -45,7 +46,7 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     getCollabUserList();
-  });
+  }, []);
 
   return (
     <DataContext.Provider value={{ dataState, dataDispatch }}>
