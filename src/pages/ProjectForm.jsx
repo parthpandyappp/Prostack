@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ProjectListingNavbar, TagsInput } from "../components";
-import { useAuth } from "../context";
+import { useAuth, useData } from "../context";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ function ProjectForm() {
   };
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
+  const { setIsDataUpdated } = useData();
 
   const {
     projectName,
@@ -50,6 +51,7 @@ function ProjectForm() {
         projects: newProjectArr,
       });
       await getUser(uid);
+      setIsDataUpdated((prev) => !prev);
       navigate("/listing/projects");
       setFormData(initialFormData);
     } catch (error) {

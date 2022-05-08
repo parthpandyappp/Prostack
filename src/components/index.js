@@ -1,3 +1,4 @@
+export { Footer } from "./Footer";
 export { Search } from "./Search";
 export { CategoryList } from "./CategoryList";
 export { ProjectCard } from "./ProjectCard";

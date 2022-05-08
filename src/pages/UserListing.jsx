@@ -4,7 +4,6 @@ import {
   ProjectListingSidebar,
   UserListingCard,
 } from "../components";
-import Footer from "../components/Footer";
 import { useData } from "../context";
 
 const UserListing = () => {
@@ -24,7 +23,6 @@ const UserListing = () => {
           })}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

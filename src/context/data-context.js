@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { db } from "../firebase/firebase";
 import { actionTypes, dataReducer } from "../reducers";
 import { useAuth } from "./auth-context";
@@ -14,6 +14,8 @@ export const DataProvider = ({ children }) => {
     projects: [],
     collabUserList: [],
   });
+
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
 
   const getCollabUserList = async () => {
     try {
@@ -50,10 +52,10 @@ export const DataProvider = ({ children }) => {
       getCollabUserList();
       getProjects();
     }
-  }, [currentUser]);
+  }, [currentUser, isDataUpdated]);
 
   return (
-    <DataContext.Provider value={{ dataState, dataDispatch }}>
+    <DataContext.Provider value={{ dataState, dataDispatch, setIsDataUpdated }}>
       {children}
     </DataContext.Provider>
   );

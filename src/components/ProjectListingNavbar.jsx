@@ -51,12 +51,18 @@ const ProjectListingNavbar = () => {
               onClick={() => setShowDropdown(!showDropdown)}
             />
             {showDropdown && (
-              <ul className="z-10 absolute -bottom-20 right-0 bg-white shadow-2xl py-4 text-md text-paragraph font-medium">
+              <ul className="z-10 absolute -bottom-30 right-0 bg-white shadow-2xl py-4 text-md text-paragraph font-medium">
                 <Link
                   to={"/userprofile"}
                   onClick={() => setShowDropdown(false)}
                 >
                   <li className="hover:bg-gray-50 px-6">Profile</li>
+                </Link>
+                <Link
+                  to={"/listing/projects"}
+                  onClick={() => setShowDropdown(false)}
+                >
+                  <li className="hover:bg-gray-50 px-6">Listing</li>
                 </Link>
                 <li
                   className="hover:bg-gray-50 px-6 text-red-500 cursor-pointer"
