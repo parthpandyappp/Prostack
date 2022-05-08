@@ -1,18 +1,11 @@
 import axios from "axios";
 import { auth, db } from "../firebase/firebase";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useDebugValue,
-} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   collection,
   addDoc,
   getDocs,
-  query,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -56,7 +49,7 @@ function AuthProvider({ children }) {
   const doesExist = async (currentUser) => {
     const querySnapshot = await getUserDataFromFireStore();
     const data = querySnapshot.docs.map((snap) => snap.data());
-    return data.find((user) => user.uid === currentUser.id);
+    return data.find((user) => user.currentUser.uid === currentUser.uid);
   };
 
   useEffect(() => {
