@@ -5,6 +5,7 @@ import {
   ProjectListingSidebar,
   UserListingCard,
 } from "../components";
+import Footer from "../components/Footer";
 
 const UserListing = () => {
   return (
@@ -21,6 +22,7 @@ const UserListing = () => {
           })}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

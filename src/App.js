@@ -1,7 +1,11 @@
 import EndPoints from "./routes/EndPoints";
 
 function App() {
-  return <EndPoints />;
+  return (
+    <>
+      <EndPoints />
+    </>
+  );
 }
 
 export default App;
