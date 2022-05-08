@@ -18,7 +18,7 @@ const UserListing = () => {
         <h1 className="text-4xl text-heading font-bold text-center">
           Find awesome teammates!
         </h1>
-        <div className="flex flex-col gap-4 my-6">
+        <div className="flex flex-wrap justify-center gap-4 my-6">
           {collabUserList.map((user, index) => {
             return <UserListingCard key={index} userInfo={user} />;
           })}
