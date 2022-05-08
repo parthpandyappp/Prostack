@@ -99,7 +99,7 @@ function ProjectForm() {
             >
               <option value="Remote">Remote</option>
               <option value="Community">Community</option>
-              <option value="Dev tools">Dev tools</option>
+              <option value="DevTools">DevTools</option>
               <option value="Education">Education</option>
               <option value="Productivity">Productivity</option>
             </select>
