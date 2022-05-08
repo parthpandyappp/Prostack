@@ -1,37 +1,83 @@
+import axios from "axios";
+import { auth, db } from "../firebase/firebase";
+import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
-import firebase from "../firebase/firebase";
+import { collection, addDoc, getDocs, query, serverTimestamp } from "firebase/firestore";
 
 const authContext = createContext(null);
 
 function AuthProvider({ children }) {
-    const [userData, setUser] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null)
 
-    const signin = async (provider) => {
-        const res = await firebase.auth().signInWithPopup(provider);
-        setUser(res)
+    const signin = async () => {
+        const res = await signInWithPopup(auth, new GithubAuthProvider());
+        setUserData(res)
         return res;
 
     }
 
-    useEffect(() => {
-        if (userData) {
-            firebase
-                .firestore()
-                .collection("users")
-                .add({
-                    username: userData.additionalUserInfo.username,
-                    email: userData.user.email,
-                    displayName: userData.user.displayName,
-                    avatar: userData.additionalUserInfo.profile.avatar_url,
-                    blog: userData.additionalUserInfo.profile.blog,
-                    twitter: userData.additionalUserInfo.profile.twitter_username,
-                    bio: userData.additionalUserInfo.profile.bio,
-                }).catch((err) => console.log(err))
+    const getFromGitHub = async (uid) => {
+        const res = await axios({
+            method: 'GET',
+            url: `https://api.github.com/user/${uid}`
+        });
+
+        return {
+            uid: userData.user.providerData[0].uid,
+            displayName: res.data.name,
+            username: res.data.login,
+            bio: res.data.bio,
+            blog: res.data.blog,
+            twitter: res.data.twitter_username,
+            avatar: res.data.avatar_url,
+            email: userData.user.email,
+            timestamp: serverTimestamp(),
         }
+
+    }
+
+    const getUserDataFromFireStore = async () => {
+        // const docRef = doc(db, "users");
+        const res = await getDocs(collection(db, "users"))
+        return res;
+    }
+
+
+    const doesExist = async (currentUser) => {
+        const querySnapshot = await getUserDataFromFireStore();
+        console.log("Snap: ", querySnapshot)
+        const data = querySnapshot.docs.map(snap => snap.data());
+        console.log(data)
+        data.forEach(user => {
+            if (user.uid === currentUser.id) {
+                console.log(true)
+                return true;
+            }
+        })
+        console.log("False")
+        return false;
+    }
+
+
+    useEffect(() => {
+        (async () => {
+            if (userData) {
+                const currentUser = await getFromGitHub(userData.user.providerData[0].uid)
+                setCurrentUser(currentUser)
+                const exist = await doesExist(currentUser)
+                if (!exist)
+                    console.log("Reached here")
+                    addDoc(collection(db, "users"), {
+                        currentUser
+                    });
+            }
+        })();
+        // eslint-disable-next-line 
     }, [userData]);
 
     return (
-        <authContext.Provider value={{ userData, signin }}>
+        <authContext.Provider value={{ currentUser, signin }}>
             {children}
         </authContext.Provider>
     );
