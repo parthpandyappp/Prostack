@@ -2,12 +2,14 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { db } from "../firebase/firebase";
 import { actionTypes, dataReducer } from "../reducers";
+import { useAuth } from "./auth-context";
 
 const DataContext = createContext(null);
 
 const { SET_COLLAB_USER_LIST, SET_PROJECTS_LIST } = actionTypes;
 
 export const DataProvider = ({ children }) => {
+  const { currentUser } = useAuth();
   const [dataState, dataDispatch] = useReducer(dataReducer, {
     projects: [],
     collabUserList: [],
@@ -44,9 +46,11 @@ export const DataProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getCollabUserList();
-    getProjects();
-  }, []);
+    if (currentUser) {
+      getCollabUserList();
+      getProjects();
+    }
+  }, [currentUser]);
 
   return (
     <DataContext.Provider value={{ dataState, dataDispatch }}>

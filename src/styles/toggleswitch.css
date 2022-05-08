@@ -19,8 +19,8 @@
   cursor: pointer;
   inset: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .slider:before {
@@ -31,8 +31,8 @@
   left: 0%;
   top: 1px;
   background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 input:checked + .slider {
