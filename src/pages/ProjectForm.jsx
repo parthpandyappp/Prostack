@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { ProjectListingNavbar, TagsInput } from "../components";
 import { useAuth } from "../context";
-import {
-  collection,
-  updateDoc,
-  getDocs,
-  serverTimestamp,
-} from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 function ProjectForm() {
@@ -16,18 +11,32 @@ function ProjectForm() {
   const [projectName, setProjectName] = useState("");
   const [category, setCategory] = useState("Productivity");
   const [techStackArray, setTechStackArray] = useState([]);
+  const [contact, setContact] = useState({ link: "", medium: "Twitter" });
 
-  console.log({
-    projectName,
-    description,
-    gitHubLink,
-    category,
-    tagArray,
-    techStackArray,
-  });
+  const {
+    currentUser: {  projects,docId },
+  } = useAuth();
 
   const postProjectDataToFirestore = async () => {
-    const res = updateDoc(collection(db, "projects"), {});
+    try {
+      const formData = {
+        projectName,
+        description,
+        gitHubLink,
+        category,
+        tagArray,
+        techStackArray,
+        contact: contact,
+      };
+      const newProjectArr = [...projects, formData];
+      console.log(newProjectArr);
+      const docRef = doc(db, "users", docId);
+      await updateDoc(docRef, {
+        projects: newProjectArr,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -135,6 +144,10 @@ function ProjectForm() {
             name="point-of-contact"
             id="social-links"
             className="mb-4 py-2 border-2 border-gray-100 block w-full focus:border-button"
+            value={contact.medium}
+            onChange={(e) =>
+              setContact((prev) => ({ ...prev, medium: e.target.value }))
+            }
           >
             <option value="Twitter">Twitter</option>
             <option value="Discord">Discord</option>
@@ -144,9 +157,13 @@ function ProjectForm() {
             id="username"
             type="text"
             placeholder="Enter the selected profile link for collaboration"
+            onChange={(e) =>
+              setContact((prev) => ({ ...prev, link: e.target.value }))
+            }
           />
           <div className="flex space-x-2 ">
             <button
+              onClick={postProjectDataToFirestore}
               type="button"
               className="w-full text-buttonText bg-button hover:opacity-90 focus:ring-4  font-medium rounded text-md px-5 py-2.5"
             >

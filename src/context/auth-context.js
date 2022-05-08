@@ -7,6 +7,8 @@ import {
   addDoc,
   getDocs,
   serverTimestamp,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -60,15 +62,24 @@ function AuthProvider({ children }) {
         const authenticatedUser = await getFromGitHub(
           userData.user.providerData[0].uid
         );
-        setCurrentUser({ ...authenticatedUser, isOpenForCollab: false });
         const userExists = await doesExist(authenticatedUser);
-        console.log(userExists);
-        if (!userExists)
-          addDoc(collection(db, "users"), {
+        if (userExists) {
+          const docRef = doc(db, "users", userExists.uid);
+          const snapShot = await getDoc(docRef);
+        }
+        if (!userExists) {
+          const doc = await addDoc(collection(db, "users"), {
             ...authenticatedUser,
             isOpenForCollab: false,
             projects: [],
           });
+          setCurrentUser({
+            ...authenticatedUser,
+            isOpenForCollab: false,
+            projects: [],
+            docId: doc.id,
+          });
+        }
       }
     })();
     // eslint-disable-next-line
