@@ -20,6 +20,7 @@ function AuthProvider({ children }) {
   const authenticateWithGitHub = async () => {
     const res = await signInWithPopup(auth, new GithubAuthProvider());
     setUserData(res);
+    localStorage.setItem("token", res.user.providerData[0].uid);
     navigate("/listing/projects");
     return res;
   };
@@ -51,7 +52,7 @@ function AuthProvider({ children }) {
   const doesExist = async (currentUser) => {
     const querySnapshot = await getUserDataFromFireStore();
     const data = querySnapshot.docs.map((snap) => snap.data());
-    return data.find((user) => user.currentUser.uid === currentUser.uid);
+    return data.find((user) => user.uid === currentUser.uid);
   };
 
   useEffect(() => {
