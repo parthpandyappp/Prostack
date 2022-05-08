@@ -57,14 +57,15 @@ function AuthProvider({ children }) {
   useEffect(() => {
     (async () => {
       if (userData) {
-        const currentUser = await getFromGitHub(
+        const authenticatedUser = await getFromGitHub(
           userData.user.providerData[0].uid
         );
-        setCurrentUser(currentUser);
-        const userExists = await doesExist(currentUser);
+        setCurrentUser({ ...authenticatedUser, isOpenForCollab: false });
+        const userExists = await doesExist(authenticatedUser);
         if (!userExists)
           addDoc(collection(db, "users"), {
-            currentUser,
+            ...authenticatedUser,
+            isOpenForCollab: false,
           });
       }
     })();
