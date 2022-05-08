@@ -15,9 +15,7 @@ function UserProfile() {
             </div>
             <div className="flex flex-col text-center w-60 md:text-left">
               <h1 className="font-bold text-xl">{currentUser.displayName}</h1>
-              <p className="text-sm ">Web Developer</p>
               <p className="text-sm ">{currentUser.bio}</p>
-              <p className="text-sm ">Skills: ReactJS, HTML, CSS</p>
             </div>
           </div>
           <div className="socials flex flex-col-reverse items-center mt-2 gap-3 md:items-end">
@@ -38,6 +36,7 @@ function UserProfile() {
             </div>
           </div>
         </section>
+        <h1 className="text-center text-heading text-3xl mt-5 font-semibold">Your Projects</h1>
         <ul className="mt-5 mx-auto mb-10">
           {currentUser.projects.map((projectInfo) => (
             <ProjectCard projectInfo={projectInfo} key={projectInfo.title} />

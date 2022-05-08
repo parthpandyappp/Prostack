@@ -2,7 +2,6 @@ import React from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { useAuth } from "../context";
 import LandingPageImg from "../assets/home-landing.png";
-import Footer from "../components/Footer";
 
 const Home = () => {
   const { authenticateWithGitHub } = useAuth();
@@ -38,7 +37,6 @@ const Home = () => {
           <AiFillGithub /> Sign in with Github
         </button>
       </main>
-      <Footer />
     </div>
   );
 };

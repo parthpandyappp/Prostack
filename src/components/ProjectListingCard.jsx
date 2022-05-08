@@ -14,7 +14,7 @@ const ProjectListingCard = ({ projectInfo }) => {
   } = projectInfo;
 
   return (
-    <div className="p-8 w-10/12 m-auto shadow-lg flex flex-col gap-2 rounded-lg">
+    <div className="p-8 md:w-2/5 shadow-lg flex flex-col gap-2 rounded-lg">
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           <p className="text-3xl font-semibold text-heading">{projectName}</p>

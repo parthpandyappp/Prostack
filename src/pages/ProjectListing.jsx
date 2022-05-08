@@ -6,7 +6,6 @@ import {
   ProjectListingSidebar,
   Search,
 } from "../components";
-import Footer from "../components/Footer";
 import { useData } from "../context";
 
 const ProjectListing = () => {
@@ -46,14 +45,13 @@ const ProjectListing = () => {
           setActiveCategory={setActiveCategory}
         />
         <Search searchInput={searchInput} setSearchInput={setSearchInput} />
-        <div className="flex flex-col gap-4 my-6">
+        <div className="flex flex-col md:flex-row gap-4 my-6 flex-wrap justify-center">
           {searchFilterdData &&
             searchFilterdData?.map((project, index) => {
               return <ProjectListingCard key={index} projectInfo={project} />;
             })}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
