@@ -12,7 +12,7 @@ const Home = () => {
           Pro<span className="text-button">Stack</span>
         </h1>
         <a
-          href="https://github.com/parthpandyappp/Prostack/tree/main"
+          href="https://github.com/parthpandyappp/Prostack/tree/dev"
           className="font-medium boder-button border-b-4 hover:border-b-blue-500"
         >
           GitHub
