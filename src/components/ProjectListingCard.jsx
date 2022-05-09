@@ -27,10 +27,10 @@ const ProjectListingCard = ({ projectInfo }) => {
         </p>
       </div>
       <div className="flex gap-1 flex-wrap">
-        {tagArray.map((tag) => {
+        {tagArray.map((tag, index) => {
           return (
             <span
-              key={tag}
+              key={index}
               className="bg-button text-white font-medium py-[2px] px-4 rounded-full"
             >
               {tag}

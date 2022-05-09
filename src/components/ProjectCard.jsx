@@ -3,6 +3,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { useAuth } from "../context";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { getUser } from "../helper-functions";
 
 function ProjectCard({ projectInfo }) {
   const {
@@ -14,7 +15,7 @@ function ProjectCard({ projectInfo }) {
     techStackArray,
   } = projectInfo;
 
-  const { currentUser, getUser } = useAuth();
+  const { currentUser, setCurrentUser } = useAuth();
 
   const deleteHandler = async (e) => {
     try {
@@ -26,7 +27,7 @@ function ProjectCard({ projectInfo }) {
       await updateDoc(docRef, {
         projects: filteredProjectArr,
       });
-      await getUser(currentUser.uid);
+      await getUser(currentUser.uid, setCurrentUser);
     } catch (error) {
       console.log(error);
     }
@@ -49,10 +50,10 @@ function ProjectCard({ projectInfo }) {
         </p>
       </div>
       <div className="flex gap-1 flex-wrap">
-        {tagArray.map((tag) => {
+        {tagArray.map((tag, index) => {
           return (
             <span
-              key={tag}
+              key={index}
               className="bg-button text-white font-medium py-[2px] px-4 rounded-full"
             >
               {tag}
@@ -66,7 +67,9 @@ function ProjectCard({ projectInfo }) {
       </div>
       <a
         href={gitHubLink}
+        target="_blank"
         className="self-end h-8 w-10 bg-button rounded-full flex justify-center items-center"
+        rel="noreferrer"
       >
         <MdOutlineKeyboardArrowRight className="text-2xl font-bold text-buttonText" />
       </a>

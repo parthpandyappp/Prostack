@@ -9,6 +9,7 @@ function ToggleSwitch() {
   const {
     currentUser: { uid, isOpenForCollab },
     getUser,
+    setCurrentUser,
   } = useAuth();
   const docRef = doc(db, "users", uid);
 
@@ -17,7 +18,7 @@ function ToggleSwitch() {
       await updateDoc(docRef, {
         isOpenForCollab: collabToggle,
       });
-      await getUser(uid);
+      await getUser(uid, setCurrentUser);
     } catch (error) {
       console.log(error);
     }

@@ -4,6 +4,7 @@ import {
   ProjectListingSidebar,
   UserListingCard,
 } from "../components";
+import EmptyPage from "../components/EmptyPage";
 import { useData } from "../context";
 
 const UserListing = () => {
@@ -18,9 +19,13 @@ const UserListing = () => {
           Find awesome teammates!
         </h1>
         <div className="flex flex-wrap justify-center gap-4 my-6">
-          {collabUserList.map((user, index) => {
-            return <UserListingCard key={index} userInfo={user} />;
-          })}
+          {collabUserList.length > 0 ? (
+            collabUserList.map((user, index) => {
+              return <UserListingCard key={index} userInfo={user} />;
+            })
+          ) : (
+            <EmptyPage />
+          )}
         </div>
       </main>
     </div>
