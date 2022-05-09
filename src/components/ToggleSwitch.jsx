@@ -2,26 +2,35 @@ import "../styles/toggleswitch.css";
 import { updateDoc, doc } from "firebase/firestore";
 import { useAuth } from "../context";
 import { db } from "../firebase/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ToggleSwitch() {
   const [collabToggle, setCollabToggle] = useState(false);
   const {
     currentUser: { uid, isOpenForCollab },
     getUser,
+    setCurrentUser,
   } = useAuth();
   const docRef = doc(db, "users", uid);
 
-  const toggleHandler = async (e) => {
+  const toggleHandler = async () => {
     try {
       await updateDoc(docRef, {
         isOpenForCollab: collabToggle,
       });
-      await getUser(uid);
+      await getUser(uid, setCurrentUser);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(
+    () => {
+      toggleHandler();
+    },
+    // eslint-disable-next-line
+    [collabToggle]
+  );
 
   return (
     <div className="toggle-switch flex gap-4 items-center">
@@ -31,7 +40,6 @@ function ToggleSwitch() {
           checked={isOpenForCollab}
           onChange={() => {
             setCollabToggle((collabToggle) => !collabToggle);
-            toggleHandler();
           }}
         />
         <span className="slider round"></span>

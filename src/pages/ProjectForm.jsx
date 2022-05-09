@@ -31,7 +31,7 @@ function ProjectForm() {
     contactMethod,
   } = formData;
 
-  const { currentUser, getUser } = useAuth();
+  const { currentUser, getUser, setCurrentUser } = useAuth();
   const { uid, projects } = currentUser;
   const postProjectDataToFirestore = async () => {
     try {
@@ -50,7 +50,7 @@ function ProjectForm() {
       await updateDoc(docRef, {
         projects: newProjectArr,
       });
-      await getUser(uid);
+      await getUser(uid, setCurrentUser);
       setIsDataUpdated((prev) => !prev);
       navigate("/listing/projects");
       setFormData(initialFormData);

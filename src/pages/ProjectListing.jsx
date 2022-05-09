@@ -6,6 +6,7 @@ import {
   ProjectListingSidebar,
   Search,
 } from "../components";
+import EmptyPage from "../components/EmptyPage";
 import { useData } from "../context";
 
 const ProjectListing = () => {
@@ -46,10 +47,13 @@ const ProjectListing = () => {
         />
         <Search searchInput={searchInput} setSearchInput={setSearchInput} />
         <div className="flex flex-col md:flex-row gap-4 my-6 flex-wrap justify-center">
-          {searchFilterdData &&
+          {searchFilterdData.length > 0 ? (
             searchFilterdData?.map((project, index) => {
               return <ProjectListingCard key={index} projectInfo={project} />;
-            })}
+            })
+          ) : (
+            <EmptyPage />
+          )}
         </div>
       </main>
     </div>
