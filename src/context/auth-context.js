@@ -3,7 +3,12 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getFromGitHub, doesExist, getUser } from "../helper-functions";
+import {
+  getFromGitHub,
+  doesExist,
+  getUser,
+  notifyUserLogin,
+} from "../helper-functions";
 
 const AuthContext = createContext(null);
 
@@ -17,6 +22,7 @@ function AuthProvider({ children }) {
       const res = await signInWithPopup(auth, new GithubAuthProvider());
       setUserData(res);
       navigate("/listing/projects");
+      notifyUserLogin();
       return res;
     } catch (error) {
       console.log(error);
@@ -24,7 +30,7 @@ function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    (async () => {
+    (async (notifyError) => {
       try {
         if (userData) {
           const authenticatedUser = await getFromGitHub(
@@ -50,6 +56,7 @@ function AuthProvider({ children }) {
         }
       } catch (error) {
         console.log(error);
+        notifyError();
       }
     })();
     // eslint-disable-next-line

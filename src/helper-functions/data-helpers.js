@@ -4,7 +4,7 @@ import { actionTypes } from "../reducers";
 
 const { SET_COLLAB_USER_LIST, SET_PROJECTS_LIST } = actionTypes;
 
-const getCollabUserList = async (dataDispatch) => {
+const getCollabUserList = async (dataDispatch, notifyError) => {
   try {
     const userRef = collection(db, "users");
     const q = query(userRef, where("isOpenForCollab", "==", true));
@@ -15,11 +15,12 @@ const getCollabUserList = async (dataDispatch) => {
       payload: { collabList: collabList },
     });
   } catch (error) {
-    alert(error.response);
+    console.log(error);
+    notifyError();
   }
 };
 
-const getProjects = async (dataDispatch) => {
+const getProjects = async (dataDispatch, notifyError) => {
   try {
     const userRef = collection(db, "users");
     const querySnapshot = await getDocs(userRef);
@@ -30,7 +31,8 @@ const getProjects = async (dataDispatch) => {
       payload: { projectList },
     });
   } catch (error) {
-    alert(error.response);
+    console.log(error);
+    notifyError();
   }
 };
 

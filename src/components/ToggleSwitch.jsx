@@ -3,6 +3,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { useAuth } from "../context";
 import { db } from "../firebase/firebase";
 import { useEffect, useState } from "react";
+import { notifyProfileUpdate } from "../helper-functions";
 
 function ToggleSwitch() {
   const [collabToggle, setCollabToggle] = useState(false);
@@ -13,7 +14,7 @@ function ToggleSwitch() {
   } = useAuth();
   const docRef = doc(db, "users", uid);
 
-  const toggleHandler = async () => {
+  const toggleHandler = async (notifyError) => {
     try {
       await updateDoc(docRef, {
         isOpenForCollab: collabToggle,
@@ -21,6 +22,7 @@ function ToggleSwitch() {
       await getUser(uid, setCurrentUser);
     } catch (error) {
       console.log(error);
+      notifyError();
     }
   };
 
@@ -40,6 +42,7 @@ function ToggleSwitch() {
           checked={isOpenForCollab}
           onChange={() => {
             setCollabToggle((collabToggle) => !collabToggle);
+            notifyProfileUpdate();
           }}
         />
         <span className="slider round"></span>

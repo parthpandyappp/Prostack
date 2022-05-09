@@ -1,27 +1,17 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useData } from "../context";
-import { getAuth, signOut } from "firebase/auth";
-
-import { actionTypes } from "../reducers";
+import {
+  notifyUserLogout,
+  signoutHandler,
+  notifyError,
+} from "../helper-functions";
 
 const ProjectListingNavbar = () => {
   const { currentUser } = useAuth();
   const { dataDispatch } = useData();
-  const { CLEAR_DATA } = actionTypes;
   const [showDropdown, setShowDropdown] = useState(false);
-  const auth = getAuth();
   const navigate = useNavigate();
-  const signoutHandler = () => {
-    signOut(auth)
-      .then(() => {
-        dataDispatch({ type: CLEAR_DATA });
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <nav className="flex justify-between items-center p-8 mb-4">
@@ -66,7 +56,14 @@ const ProjectListingNavbar = () => {
                 </Link>
                 <li
                   className="hover:bg-gray-50 px-6 text-red-500 cursor-pointer"
-                  onClick={signoutHandler}
+                  onClick={() =>
+                    signoutHandler(
+                      dataDispatch,
+                      notifyUserLogout,
+                      navigate,
+                      notifyError
+                    )
+                  }
                 >
                   {" "}
                   Logout

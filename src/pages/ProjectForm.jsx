@@ -4,6 +4,7 @@ import { useAuth, useData } from "../context";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import { notifyError, notifyProjectListUpdate } from "../helper-functions";
 
 function ProjectForm() {
   const initialFormData = {
@@ -33,7 +34,7 @@ function ProjectForm() {
 
   const { currentUser, getUser, setCurrentUser } = useAuth();
   const { uid, projects } = currentUser;
-  const postProjectDataToFirestore = async () => {
+  const postProjectDataToFirestore = async (notifySuccess, notifyError) => {
     try {
       const formData = {
         projectName,
@@ -50,12 +51,14 @@ function ProjectForm() {
       await updateDoc(docRef, {
         projects: newProjectArr,
       });
-      await getUser(uid, setCurrentUser);
+      await getUser(uid, setCurrentUser, notifyError);
       setIsDataUpdated((prev) => !prev);
       navigate("/listing/projects");
       setFormData(initialFormData);
+      notifySuccess();
     } catch (error) {
       console.error(error);
+      notifyError();
     }
   };
 
@@ -195,7 +198,9 @@ function ProjectForm() {
           />
           <div className="flex space-x-2 ">
             <button
-              onClick={postProjectDataToFirestore}
+              onClick={() =>
+                postProjectDataToFirestore(notifyProjectListUpdate, notifyError)
+              }
               type="button"
               className="w-full text-buttonText bg-button hover:opacity-90 focus:ring-4  font-medium rounded text-md px-5 py-2.5"
             >

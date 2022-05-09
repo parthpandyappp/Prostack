@@ -1,4 +1,4 @@
-import { db } from "../firebase/firebase";
+import { db, auth } from "../firebase/firebase";
 import axios from "axios";
 import {
   collection,
@@ -7,8 +7,12 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { actionTypes } from "../reducers";
 
-const getFromGitHub = async (uid, userData) => {
+const { CLEAR_DATA } = actionTypes;
+
+const getFromGitHub = async (uid, userData, notifyError) => {
   try {
     const res = await axios({
       method: "GET",
@@ -28,29 +32,32 @@ const getFromGitHub = async (uid, userData) => {
     };
   } catch (error) {
     console.log(error);
+    notifyError();
   }
 };
 
-const getUserDataFromFireStore = async () => {
+const getUserDataFromFireStore = async (notifyError) => {
   try {
     const res = await getDocs(collection(db, "users"));
     return res;
   } catch (error) {
     console.log(error);
+    notifyError();
   }
 };
 
-const doesExist = async (currentUser) => {
+const doesExist = async (currentUser, notifyError) => {
   try {
     const querySnapshot = await getUserDataFromFireStore();
     const data = querySnapshot.docs.map((snap) => snap.data());
     return data.find((user) => user.uid === currentUser.uid);
   } catch (error) {
     console.log(error);
+    notifyError();
   }
 };
 
-const getUser = async (uid, setCurrentUser) => {
+const getUser = async (uid, setCurrentUser, notifyError) => {
   try {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -59,7 +66,27 @@ const getUser = async (uid, setCurrentUser) => {
     }
   } catch (error) {
     console.log(error);
+    notifyError();
   }
 };
 
-export { getFromGitHub, getUserDataFromFireStore, doesExist, getUser };
+const signoutHandler = (dataDispatch, notifySuccess, navigate, notifyError) => {
+  signOut(auth)
+    .then(() => {
+      dataDispatch({ type: CLEAR_DATA });
+      notifySuccess();
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log(error);
+      notifyError();
+    });
+};
+
+export {
+  getFromGitHub,
+  getUserDataFromFireStore,
+  doesExist,
+  getUser,
+  signoutHandler,
+};

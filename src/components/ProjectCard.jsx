@@ -3,7 +3,11 @@ import { AiFillDelete } from "react-icons/ai";
 import { useAuth } from "../context";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getUser } from "../helper-functions";
+import {
+  getUser,
+  notifyError,
+  notifyProjectDeletion,
+} from "../helper-functions";
 
 function ProjectCard({ projectInfo }) {
   const {
@@ -17,7 +21,7 @@ function ProjectCard({ projectInfo }) {
 
   const { currentUser, setCurrentUser } = useAuth();
 
-  const deleteHandler = async (e) => {
+  const deleteHandler = async (notifySuccess, notifyError) => {
     try {
       const docRef = doc(db, "users", currentUser.uid);
       const projectArr = currentUser.projects;
@@ -28,8 +32,10 @@ function ProjectCard({ projectInfo }) {
         projects: filteredProjectArr,
       });
       await getUser(currentUser.uid, setCurrentUser);
+      notifySuccess();
     } catch (error) {
       console.log(error);
+      notifyError();
     }
   };
 
@@ -41,7 +47,7 @@ function ProjectCard({ projectInfo }) {
           <div>
             <AiFillDelete
               className="text-red-700 text-2xl cursor-pointer"
-              onClick={deleteHandler}
+              onClick={() => deleteHandler(notifyProjectDeletion, notifyError)}
             />
           </div>
         </div>
